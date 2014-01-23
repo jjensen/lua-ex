@@ -560,6 +560,12 @@ static int ex_spawn(lua_State *L)
     lua_getfield(L, 2, "detach");          /* cmd opts ... envtab */
     spawn_param_detach(params, lua_type(L, -1) == LUA_TBOOLEAN ? lua_toboolean(L, -1) : 0);
 
+    lua_getfield(L, 2, "suspended");          /* cmd opts ... envtab */
+    spawn_param_suspended(params, lua_type(L, -1) == LUA_TBOOLEAN ? lua_toboolean(L, -1) : 0);
+
+    lua_getfield(L, 2, "can_terminate");          /* cmd opts ... envtab */
+    spawn_param_can_terminate(params, lua_type(L, -1) == LUA_TBOOLEAN ? lua_toboolean(L, -1) : 0);
+
     get_redirect(L, 2, "stdin", params);    /* cmd opts ... */
     get_redirect(L, 2, "stdout", params);   /* cmd opts ... */
     get_redirect(L, 2, "stderr", params);   /* cmd opts ... */
@@ -685,6 +691,7 @@ int luaopen_ex_core(lua_State *L)
     {"copyfile",   ex_copyfile},
     {"movefile",   ex_movefile},
     {"touch",   ex_touch},
+    {"terminate",  process_terminate},
     {"stdin_binary", ex_stdin_binary},
     {"stdout_binary", ex_stdout_binary},
     /* process control */
@@ -697,6 +704,8 @@ int luaopen_ex_core(lua_State *L)
   const luaL_Reg ex_process_methods[] = {
     {"__tostring", process_tostring},
 #define ex_process_functions (ex_process_methods + 1)
+    {"getinfo",    process_getinfo},
+    {"resume",     process_resume},
     {"wait",       process_wait},
     {"__gc",       process_close},
     {0,0} };
