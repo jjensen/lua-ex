@@ -345,6 +345,27 @@ static int ex_hardlink(lua_State *L)
 }
 
 
+lua_Integer luaL_checkboolean (lua_State *L, int narg) {
+	lua_Integer d = lua_toboolean(L, narg);
+	if (d == 0 && !lua_isboolean(L, narg)) {  /* avoid extra test when d is not 0 */
+		const char *msg = lua_pushfstring(L, "%s expected, got %s",
+				luaL_typename(L, narg), lua_typename(L, LUA_TBOOLEAN));
+		return luaL_argerror(L, narg, msg);
+	}
+	return d;
+}
+
+
+static int ex_symboliclink(lua_State *L)
+{
+  const char *symlinkFilename = luaL_checkstring(L, 1);
+  const char *targetFilename = luaL_checkstring(L, 2);
+  lua_Integer is_directory = luaL_checkboolean(L, 3);
+  lua_pushboolean(L, CreateSymbolicLink(symlinkFilename, targetFilename, is_directory ? SYMBOLIC_LINK_FLAG_DIRECTORY : 0) != FALSE);
+  return 1;
+}
+
+
 static int ex_copyfile(lua_State *L)
 {
   const char *srcfilename = luaL_checkstring(L, 1);
@@ -660,6 +681,7 @@ int luaopen_ex_core(lua_State *L)
     {"dir",        ex_dir},
     {"dirent",     ex_dirent},
     {"hardlink",   ex_hardlink},
+    {"symboliclink", ex_symboliclink},
     {"copyfile",   ex_copyfile},
     {"movefile",   ex_movefile},
     {"touch",   ex_touch},
