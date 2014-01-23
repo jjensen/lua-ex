@@ -336,6 +336,15 @@ static int ex_dir(lua_State *L)
 }
 
 
+static int ex_hardlink(lua_State *L)
+{
+  const char *srcfilename = luaL_checkstring(L, 1);
+  const char *destfilename = luaL_checkstring(L, 2);
+  lua_pushboolean(L, CreateHardLink(destfilename, srcfilename, NULL) != FALSE);
+  return 1;
+}
+
+
 static int ex_copyfile(lua_State *L)
 {
   const char *srcfilename = luaL_checkstring(L, 1);
@@ -650,6 +659,7 @@ int luaopen_ex_core(lua_State *L)
     {"remove",     ex_remove},
     {"dir",        ex_dir},
     {"dirent",     ex_dirent},
+    {"hardlink",   ex_hardlink},
     {"copyfile",   ex_copyfile},
     {"movefile",   ex_movefile},
     {"touch",   ex_touch},
