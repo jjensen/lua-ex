@@ -75,6 +75,7 @@ function ex.collectlines(args)
 	return lines
 end
 
+local filefind
 
 local function copy_directory_helper(srcPath, destPath, callback, deleteExtra)
 	-- Create the destination directory.
@@ -148,7 +149,9 @@ end
 
 
 function ex.copydirectory(srcPath, destPath, callback)
-	require 'filefind'
+	if not filefind then
+		filefind = require 'filefind'
+	end
 
 	srcPath = os.path.add_slash(os.path.make_slash(srcPath))
 	destPath = os.path.add_slash(os.path.make_slash(destPath))
@@ -158,7 +161,9 @@ end
 
 
 function ex.mirrordirectory(srcPath, destPath, callback)
-	require 'filefind'
+	if not filefind then
+		filefind = require 'filefind'
+	end
 
 	srcPath = os.path.add_slash(os.path.make_slash(srcPath))
 	destPath = os.path.add_slash(os.path.make_slash(destPath))
@@ -168,7 +173,9 @@ end
 
 
 function ex.removeemptydirectories(path)
-	require 'filefind'
+	if not filefind then
+		filefind = require 'filefind'
+	end
 	require 'ex'
 
 	local dirs = {}
