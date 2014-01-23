@@ -181,20 +181,16 @@ function ex.removeemptydirectories(path)
 	local dirs = {}
 	local remove = true
 
-	for handle in filefind.match(path .. "*.*") do
+	for handle in filefind.match(path .. "*") do
 		if handle.is_directory then
-			local fileName = handle.filename
-
-			if fileName ~= '.'  and  fileName ~= '..' then
-				dirs[#dirs + 1] = fileName
-			end
+			dirs[#dirs + 1] = handle.filename
 		else
 			remove = false
 		end
 	end
 
 	for _, dirName in ipairs(dirs) do
-		if not ex.removeemptydirectories(path .. dirName .. '\\') then
+		if not ex.removeemptydirectories(path .. dirName .. '/') then
 			remove = false
 		end
 	end
