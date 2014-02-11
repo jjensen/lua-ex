@@ -363,7 +363,9 @@ static int ex_symboliclink(lua_State *L)
   const char *symlinkFilename = luaL_checkstring(L, 1);
   const char *targetFilename = luaL_checkstring(L, 2);
   lua_Integer is_directory = luaL_checkboolean(L, 3);
-  lua_pushboolean(L, CreateSymbolicLink(symlinkFilename, targetFilename, is_directory ? SYMBOLIC_LINK_FLAG_DIRECTORY : 0) != FALSE);
+  if (CreateSymbolicLink(symlinkFilename, targetFilename, is_directory ? SYMBOLIC_LINK_FLAG_DIRECTORY : 0) == FALSE)
+    return push_error(L);
+  lua_pushboolean(L, 1);
   return 1;
 }
 
