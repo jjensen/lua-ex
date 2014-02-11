@@ -385,7 +385,9 @@ static int ex_movefile(lua_State *L)
 {
   const char *srcfilename = luaL_checkstring(L, 1);
   const char *destfilename = luaL_checkstring(L, 2);
-  lua_pushboolean(L, MoveFile(srcfilename, destfilename) != FALSE);
+  if (MoveFile(srcfilename, destfilename) == FALSE)
+    return push_error(L);
+  lua_pushboolean(L, 1);
   return 1;
 }
 
