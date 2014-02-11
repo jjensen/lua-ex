@@ -374,7 +374,9 @@ static int ex_copyfile(lua_State *L)
 {
   const char *srcfilename = luaL_checkstring(L, 1);
   const char *destfilename = luaL_checkstring(L, 2);
-  lua_pushboolean(L, CopyFile(srcfilename, destfilename, FALSE) != FALSE);
+  if (CopyFile(srcfilename, destfilename, FALSE) == FALSE)
+    return push_error(L);
+  lua_pushboolean(L, 1);
   return 1;
 }
 
