@@ -396,9 +396,9 @@
 <h3>proc = os.spawn{filename, [args-opts]}</h3>
 <h3>proc = os.spawn{command=filename, [args-opts]}</h3>
 
-<p>creates a child process.</p>
+<p>Creates a child process.</p>
 
-<p><code>filename</code> names a program. if the (implementation-defined) pathname is not absolute, the program is found through an implementation-defined search method (the path environment variable on most systems).</p>
+<p><code>filename</code> names a program. If the (implementation-defined) pathname is not absolute, the program is found through an implementation-defined search method (the PATH environment variable on most systems).</p>
 
 <p>If specified, [args-opts] is one or more of the following keys:</p>
 
@@ -409,7 +409,6 @@
     <li><code>stdin=</code>, <code>stdout=</code>, <code>stderr=</code> - io.file objects for standard input, output, and error respectively</li>
     <li><code>shell=</code> - Set to <code>true</code> if this is a shell application.  Set to <code>false</code> if this is a GUI application.  Defaults to <code>true</code>.</li>
     <li><code>show=</code> - Set to <code>true</code> to show the application.  Set to <code>false</code> to hide it.  Defaults to <code>true</code>.</li>
-    <li><code>detach=</code> - Set to <code>true</code> to detach the application from the parent.  Defaults to <code>true</code>.</li>
     <li><code>detach=</code> - Set to <code>true</code> to detach the application from the parent.  Defaults to <code>true</code>.</li>
     <li><code>suspended=</code> - Set to <code>true</code> to start the spawned application as suspended, requiring a call to <code>os.resume(process)</code> to resume the application.  Defaults to <code>false</code>.</li>
     <li><code>can_terminate=</code> - Set to <code>true</code> to start the application in such a way that it is part of the current process's process tree and can be terminated.  Defaults to <code>false</code>.</li>

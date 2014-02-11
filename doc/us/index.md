@@ -316,9 +316,9 @@ Suspends program execution for interval/unit seconds; 'unit' defaults to 1 and e
 ### proc = os.spawn{filename, [args-opts]}
 ### proc = os.spawn{command=filename, [args-opts]}
 
-creates a child process.
+Creates a child process.
 
-`filename` names a program. if the (implementation-defined) pathname is not absolute, the program is found through an implementation-defined search method (the path environment variable on most systems).
+`filename` names a program. If the (implementation-defined) pathname is not absolute, the program is found through an implementation-defined search method (the PATH environment variable on most systems).
 
 If specified, [args-opts] is one or more of the following keys:
 
@@ -328,7 +328,6 @@ If specified, [args-opts] is one or more of the following keys:
 * `stdin=`, `stdout=`, `stderr=` - io.file objects for standard input, output, and error respectively
 * `shell=` - Set to `true` if this is a shell application.  Set to `false` if this is a GUI application.  Defaults to `true`.
 * `show=` - Set to `true` to show the application.  Set to `false` to hide it.  Defaults to `true`.
-* `detach=` - Set to `true` to detach the application from the parent.  Defaults to `true`.
 * `detach=` - Set to `true` to detach the application from the parent.  Defaults to `true`.
 * `suspended=` - Set to `true` to start the spawned application as suspended, requiring a call to `os.resume(process)` to resume the application.  Defaults to `false`.
 * `can_terminate=` - Set to `true` to start the application in such a way that it is part of the current process's process tree and can be terminated.  Defaults to `false`.
