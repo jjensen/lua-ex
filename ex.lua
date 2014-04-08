@@ -144,6 +144,7 @@ local function copy_directory_helper(srcPath, destPath, options)
 		if callback then callback('copy', srcFileName, destFileName) end
 		if not noop then
 			os.chmod(destFileName, 'w')				-- Make sure we can overwrite the file
+			os.remove(destFileName)                 -- Break any hardlinks/symlinks...
 			copyfile(srcFileName, destFileName)
 		end
 	end
