@@ -133,6 +133,7 @@ local function copy_directory_helper(srcPath, destPath, options)
 	local copyfile
 	if not noop  and  srcFiles[1] then
 		-- Create the destination directory.
+		if callback then callback('mkdir', destPath) end
 		os.mkdir(destPath)
 		copyfile = options.copyfile  or  os.copyfile
 	end
