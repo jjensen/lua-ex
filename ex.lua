@@ -213,7 +213,7 @@ function ex.removeemptydirectories(path)
 	local dirs = {}
 	local remove = true
 
-	for handle in filefind.match(path .. "*") do
+	for handle in filefind.match(os.path.combine(path, "*")) do
 		if handle.is_directory then
 			dirs[#dirs + 1] = handle.filename
 		else
@@ -222,7 +222,7 @@ function ex.removeemptydirectories(path)
 	end
 
 	for _, dirName in ipairs(dirs) do
-		if not ex.removeemptydirectories(path .. dirName .. '/') then
+		if not ex.removeemptydirectories(os.path.combine(path, dirName)) then
 			remove = false
 		end
 	end
